@@ -24,12 +24,12 @@ const dashboardRoutes = [
     icon: "nc-icon nc-chart-pie-35",
     accountType: ["teacher", "student"],
   },
-  {
-    path: "/courses",
-    name: "Courses",
-    icon: "nc-icon nc-chart-pie-35",
-    accountType: "admin",
-  },
+  // {
+  //   path: "/courses",
+  //   name: "Courses",
+  //   icon: "nc-icon nc-chart-pie-35",
+  //   accountType: "admin",
+  // },
   {
     path: "/students",
     name: "Students",
@@ -46,7 +46,7 @@ const dashboardRoutes = [
     path: "/grades",
     name: "Grades",
     icon: "nc-icon nc-bulb-63",
-    accountType: "student",
+    accountType: ["admin", "teacher", "student"],
   },
   {
     path: "/messages",

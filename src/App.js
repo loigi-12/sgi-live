@@ -10,6 +10,7 @@ import Subjects from "./views/Subjects";
 import Grades from "./views/Grades";
 import Courses from "./views/Courses";
 import Students from "views/Students";
+import StudentDetails from "views/StudentDetails";
 import UserProfile from "./views/UserProfile";
 import NotFound from "./views/NotFound";
 
@@ -68,6 +69,7 @@ function App(props) {
               <PrivateRoute path="/subjects" component={Subjects} />
               <PrivateRoute path="/grades" component={Grades} />
               <PrivateRoute path="/students" component={Students} />
+              <PrivateRoute path="/students/:id" component={StudentDetails} />
               <PrivateRoute path="/courses" component={Courses} />
               {!currentUser && <Route path="/signup" component={Signup} />}
               {!currentUser && <Route path="/login" component={Login} />}

@@ -54,11 +54,6 @@ const dashboardRoutes = [
     icon: "nc-icon nc-circle-09",
     visible: false,
   },
-  {
-    path: "/students/:id",
-    name: "Student Details",
-    visible: false,
-  },
 
   {
     path: "/add-teacher",

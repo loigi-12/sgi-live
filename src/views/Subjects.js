@@ -6,7 +6,7 @@ import SubjectsTable from "../components/SubjectsTable";
 
 function Subjects() {
   const [docId, setDocId] = useState();
-  const [type, setType] = useState("student");
+  const [type, setType] = useState();
   const [subjects, setSubjects] = useState([]);
   const [subjectsCode, setSubjectsCode] = useState([]);
   const [sortColumn, setSortColumn] = useState({
@@ -53,6 +53,8 @@ function Subjects() {
   useEffect(() => {
     getSubject();
   }, []);
+
+  // CONSIDER THIS ONE, REMOVE THE [] IN THE PRODUCTION
 
   function getTerm(term) {
     if (term == "1") {

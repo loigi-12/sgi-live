@@ -1,5 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-export default function StudentDetails() {
-  return <div>StudentDetails</div>;
+function StudentDetails() {
+  const params = useParams();
+
+  useEffect(() => {});
+
+  return <div>sdfsdf</div>;
 }
+
+export default StudentDetails;

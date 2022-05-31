@@ -72,18 +72,22 @@ function App(props) {
               <PrivateRoute path="/subjects" component={Subjects} />
               <PrivateRoute path="/grades" component={Grades} />
               <PrivateRoute path="/students" component={Students} />
-              <PrivateRoute path="/students/:id" component={StudentDetails} />
+              <PrivateRoute
+                path="/students/:id"
+                component={<StudentDetails />}
+              />
               <PrivateRoute path="/courses" component={Courses} />
               <PrivateRoute path="/add-teacher" component={AddTeacher} />
               <PrivateRoute path="/add-student" component={AddStudent} />
               <PrivateRoute path="/add-subject" component={AddSubject} />
-              {/* {!currentUser && <Route path="/signup" component={Signup} />}
-              {!currentUser && <Route path="/login" component={Login} />} */}
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
+              {!currentUser && <Route path="/signup" component={Signup} />}
+              {!currentUser && <Route path="/login" component={Login} />}
+              {/* <Route path="/signup" component={Signup} />
+              <Route path="/login" component={Login} /> */}
               <Route path="/forgot-password" component={ForgotPassword} />
-              <Route path="/404" component={NotFound} />
+              <Redirect path="/404" component={NotFound} />
               <Redirect from="/" exact to="dashboard" />
+              <Redirect path="/404" />
             </Switch>
           </AuthProvider>
         </div>

@@ -89,7 +89,13 @@ function Header() {
               </Dropdown.Toggle>
               <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
                 <Dropdown.Item onClick={(e) => e.preventDefault()}>
-                  <Link to="/profile">My Account</Link>
+                  <Link to="/add-teacher">Add Teacher</Link>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={(e) => e.preventDefault()}>
+                  <Link to="/add-student">Add Student</Link>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={(e) => e.preventDefault()}>
+                  <Link to="/add-subject">Add Subject</Link>
                 </Dropdown.Item>
                 <div className="divider"></div>
                 <Dropdown.Item href="/" onClick={handleLogout}>

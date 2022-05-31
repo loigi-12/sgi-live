@@ -10,7 +10,7 @@ import Subjects from "./views/Subjects";
 import Grades from "./views/Grades";
 import Courses from "./views/Courses";
 import Students from "views/Students";
-import StudentDetails from "views/StudentDetails";
+import StudentDetails from "./views/StudentDetails";
 import UserProfile from "./views/UserProfile";
 import NotFound from "./views/NotFound";
 
@@ -22,6 +22,9 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import ForgotPassword from "./components/ForgotPassword";
 import PrivateRoute from "./components/PrivateRoute";
+import AddTeacher from "views/AddTeacher";
+import AddStudent from "views/AddStudent";
+import AddSubject from "views/AddSubject";
 
 function App(props) {
   const location = useLocation();
@@ -71,8 +74,13 @@ function App(props) {
               <PrivateRoute path="/students" component={Students} />
               <PrivateRoute path="/students/:id" component={StudentDetails} />
               <PrivateRoute path="/courses" component={Courses} />
-              {!currentUser && <Route path="/signup" component={Signup} />}
-              {!currentUser && <Route path="/login" component={Login} />}
+              <PrivateRoute path="/add-teacher" component={AddTeacher} />
+              <PrivateRoute path="/add-student" component={AddStudent} />
+              <PrivateRoute path="/add-subject" component={AddSubject} />
+              {/* {!currentUser && <Route path="/signup" component={Signup} />}
+              {!currentUser && <Route path="/login" component={Login} />} */}
+              <Route path="/signup" component={Signup} />
+              <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path="/404" component={NotFound} />
               <Redirect from="/" exact to="dashboard" />

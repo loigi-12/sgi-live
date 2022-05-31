@@ -51,14 +51,22 @@ export default function Signup() {
         return setError("Teacher's Id does not exist.");
 
     const getDocId = await db
-      .collection("teachers")
+      .collection(type === "teacher" ? "teachers" : "students")
       .get()
       .then((snapshot) =>
-        snapshot.docs.forEach((doc) => {
-          if (doc.data().teacherId === idRef.current.value) {
-            setDocId(doc.id);
-          }
-        })
+        type === "teacher"
+          ? snapshot.docs.forEach((doc) => {
+              if (doc.data().teacherId == idRef.current.value) {
+                console.log("teacher");
+                setDocId(doc.id);
+              }
+            })
+          : snapshot.docs.forEach((doc) => {
+              if (doc.data().studentId == idRef.current.value) {
+                console.log("student");
+                setDocId(doc.id);
+              }
+            })
       );
 
     try {
@@ -87,7 +95,7 @@ export default function Signup() {
         );
       }
     } catch (error) {
-      setError("Failed to create an account.");
+      setError(error.message);
     }
 
     setLoading(false);

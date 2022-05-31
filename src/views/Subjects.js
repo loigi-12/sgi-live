@@ -6,7 +6,7 @@ import SubjectsTable from "../components/SubjectsTable";
 
 function Subjects() {
   const [docId, setDocId] = useState();
-  const [type, setType] = useState();
+  const [type, setType] = useState("student");
   const [subjects, setSubjects] = useState([]);
   const [subjectsCode, setSubjectsCode] = useState([]);
   const [sortColumn, setSortColumn] = useState({
@@ -27,23 +27,27 @@ function Subjects() {
       });
     });
 
-    await db
-      .collection("teachers")
-      .doc(docId)
-      .collection("t_subjects")
-      .onSnapshot((snapshot) =>
-        setSubjectsCode(snapshot.docs.map((doc) => doc.data()))
-      );
+    if (type == "student") {
+      await db.collectionGroup("s_subjects").onSnapshot((snapshot) => {
+        setSubjects(snapshot.docs.map((doc) => doc.data()));
 
-    await db.collectionGroup("subjects").onSnapshot((snapshot) => {
-      setSubjects(snapshot.docs.map((doc) => doc.data()));
+        const uniqueYear = snapshot.docs.map((doc) => doc.data().year);
+        const uniqueTerm = snapshot.docs.map((doc) => doc.data().term);
 
-      const uniqueYear = snapshot.docs.map((doc) => doc.data().year);
-      const uniqueTerm = snapshot.docs.map((doc) => doc.data().term);
+        setSY([...new Set(uniqueYear)]);
+        setTerm([...new Set(uniqueTerm)]);
+      });
+    } else {
+      await db.collection("subjects").onSnapshot((snapshot) => {
+        setSubjects(snapshot.docs.map((doc) => doc.data()));
 
-      setSY([...new Set(uniqueYear)]);
-      setTerm([...new Set(uniqueTerm)]);
-    });
+        const uniqueYear = snapshot.docs.map((doc) => doc.data().year);
+        const uniqueTerm = snapshot.docs.map((doc) => doc.data().term);
+
+        setSY([...new Set(uniqueYear)]);
+        setTerm([...new Set(uniqueTerm)]);
+      });
+    }
   }
 
   useEffect(() => {
@@ -51,9 +55,9 @@ function Subjects() {
   }, []);
 
   function getTerm(term) {
-    if (term === "1") {
+    if (term == "1") {
       return "1st Semester";
-    } else if (term === "2") {
+    } else if (term == "2") {
       return "2nd Semester";
     } else {
       return "Summer";
@@ -79,8 +83,7 @@ function Subjects() {
                   <Card.Body className="table-full-width table-responsive px-0">
                     <SubjectsTable
                       subjects={subjects.filter(
-                        (subject) =>
-                          subject.year === sy && subject.term === term
+                        (subject) => subject.year == sy && subject.term == term
                       )}
                       sortColumn={sortColumn}
                     />

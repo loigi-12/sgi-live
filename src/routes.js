@@ -1,9 +1,3 @@
-import Dashboard from "views/Dashboard.js";
-import UserProfile from "views/UserProfile.js";
-import Subjects from "views/Subjects";
-import Students from "views/Students";
-import Courses from "views/Courses";
-
 const dashboardRoutes = [
   {
     upgrade: true,
@@ -18,12 +12,12 @@ const dashboardRoutes = [
     icon: "nc-icon nc-chart-pie-35",
     accountType: "admin",
   },
-  {
-    path: "/home",
-    name: "Home",
-    icon: "nc-icon nc-chart-pie-35",
-    accountType: ["teacher", "student"],
-  },
+  // {
+  //   path: "/home",
+  //   name: "Home",
+  //   icon: "nc-icon nc-chart-pie-35",
+  //   accountType: ["teacher", "student"],
+  // },
   // {
   //   path: "/courses",
   //   name: "Courses",
@@ -46,7 +40,7 @@ const dashboardRoutes = [
     path: "/grades",
     name: "Grades",
     icon: "nc-icon nc-bulb-63",
-    accountType: ["admin", "teacher", "student"],
+    accountType: ["student"],
   },
   {
     path: "/messages",
@@ -58,6 +52,27 @@ const dashboardRoutes = [
     path: "/profile",
     name: "User Profile",
     icon: "nc-icon nc-circle-09",
+    visible: false,
+  },
+  {
+    path: "/students/:id",
+    name: "Student Details",
+    visible: false,
+  },
+
+  {
+    path: "/add-teacher",
+    name: "Add Teacher",
+    visible: false,
+  },
+  {
+    path: "/add-student",
+    name: "Add Student",
+    visible: false,
+  },
+  {
+    path: "/add-subject",
+    name: "Add Subject",
     visible: false,
   },
 ];

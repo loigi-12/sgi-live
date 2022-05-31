@@ -1,13 +1,8 @@
 import React from "react";
-import ChartistGraph from "react-chartist";
-import { Card, Table, Container, Row, Col } from "react-bootstrap";
+import FeaturedInfo from "../components/featuredInfo/FeaturedInfo";
 
 function Dashboard() {
-  return (
-    <>
-      <h1>Dashboard</h1>
-    </>
-  );
+  return <FeaturedInfo />;
 }
 
 export default Dashboard;

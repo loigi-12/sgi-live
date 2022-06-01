@@ -15,58 +15,48 @@ function AddForm() {
   const [docId, setDocId] = useState();
 
   const handleSubmit = async () => {
-    // await db
-    //   .collection("students")
-    //   .add({
-    //     course: course,
-    //     department: department,
-    //     name: fullname,
-    //     studentId: studentId,
-    //     year: year,
-    //     block: block,
-    //   })
-    //   .catch((error) => alert(error.message));
-
-    await db
-      .collection("students")
-      .doc(docId)
-      .collectionGroup("s_subjects")
-      .add({
-        code: course,
-        desc: course,
-        laboratoryHours: course,
-        lectureHours: course,
-        noOfUnits: course,
-        preRequisite: course,
-        term: course,
-        year: course,
-      })
-      .catch((error) => alert(error.message));
+    try {
+      await db
+        .collection("students")
+        .add({
+          course: course,
+          department: department,
+          name: fullname,
+          studentId: studentId,
+          year: year,
+          block: block,
+        })
+        .then((docRef) => {
+          setDocId(docRef.id);
+          alert("Student Added Successfully!");
+        })
+        .catch((error) => alert(error));
+    } catch (error) {}
   };
 
   const getSubjects = async () => {
-    await db.collection("subjects").onSnapshot((snapshot) => {
-      setSubjects(snapshot.docs.map((doc) => doc.data()));
-    });
-
-    await db
-      .collection("students")
-      .get()
-      .then((snapshot) => {
-        const sb = snapshot.docs.map((doc) => doc.data());
-        sb.forEach((s) => {
-          if (s.studentId == studentId) {
-            setDocId(s.studentId);
-          }
-        });
+    try {
+      await db.collection("subjects").onSnapshot((snapshot) => {
+        setSubjects(snapshot.docs.map((doc) => doc.data()));
       });
+
+      // await db
+      //   .collection("students")
+      //   .get()
+      //   .then((snapshot) => {
+      //     const sb = snapshot.docs.map((doc) => doc.data());
+      //     sb.forEach((s) => {
+      //       if (s.studentId == studentId) {
+      //         setDocId(s.studentId);
+      //       }
+      //     });
+      //   });
+    } catch (error) {}
   };
 
   useEffect(() => {
     getSubjects();
   }, []);
-
-  console.log(docId);
 
   return (
     <>
@@ -152,7 +142,7 @@ function AddForm() {
                     </Col>
                   </Row>
 
-                  <Row>
+                  {/* <Row>
                     <Col className="pl-1" md="6">
                       <Form.Group>
                         <label>Load Subjects</label>
@@ -166,7 +156,7 @@ function AddForm() {
                         </Form.Control>
                       </Form.Group>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Button
                     className="btn-fill pull-right"
                     variant="info"

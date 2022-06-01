@@ -11,7 +11,7 @@ class StudentsTable extends Component {
       path: "name",
       label: "Name",
       content: (student) => (
-        <Link to={`/students/${student.studentId}`}>{student.name}</Link>
+        <Link to={`/student/${student.studentId}`}>{student.name}</Link>
       ),
     },
     { path: "department", label: "Department" },

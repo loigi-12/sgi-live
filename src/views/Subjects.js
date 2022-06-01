@@ -16,38 +16,40 @@ function Subjects() {
   const [term, setTerm] = useState([]);
 
   async function getSubject() {
-    await db.collection("users").onSnapshot((snapshot) => {
-      const data = snapshot.docs.map((doc) => doc.data());
+    try {
+      await db.collection("users").onSnapshot((snapshot) => {
+        const data = snapshot.docs.map((doc) => doc.data());
 
-      data.map((u) => {
-        if (u.email === firebase.auth().currentUser.email) {
-          setDocId(u.docId);
-          setType(u.accountType);
-        }
+        data.map((u) => {
+          if (u.email === firebase.auth().currentUser.email) {
+            setDocId(u.docId);
+            setType(u.accountType);
+          }
+        });
       });
-    });
 
-    if (type == "student") {
-      await db.collectionGroup("s_subjects").onSnapshot((snapshot) => {
-        setSubjects(snapshot.docs.map((doc) => doc.data()));
+      if (type == "student") {
+        await db.collectionGroup("s_subjects").onSnapshot((snapshot) => {
+          setSubjects(snapshot.docs.map((doc) => doc.data()));
 
-        const uniqueYear = snapshot.docs.map((doc) => doc.data().year);
-        const uniqueTerm = snapshot.docs.map((doc) => doc.data().term);
+          const uniqueYear = snapshot.docs.map((doc) => doc.data().year);
+          const uniqueTerm = snapshot.docs.map((doc) => doc.data().term);
 
-        setSY([...new Set(uniqueYear)]);
-        setTerm([...new Set(uniqueTerm)]);
-      });
-    } else {
-      await db.collection("subjects").onSnapshot((snapshot) => {
-        setSubjects(snapshot.docs.map((doc) => doc.data()));
+          setSY([...new Set(uniqueYear)]);
+          setTerm([...new Set(uniqueTerm)]);
+        });
+      } else {
+        await db.collection("subjects").onSnapshot((snapshot) => {
+          setSubjects(snapshot.docs.map((doc) => doc.data()));
 
-        const uniqueYear = snapshot.docs.map((doc) => doc.data().year);
-        const uniqueTerm = snapshot.docs.map((doc) => doc.data().term);
+          const uniqueYear = snapshot.docs.map((doc) => doc.data().year);
+          const uniqueTerm = snapshot.docs.map((doc) => doc.data().term);
 
-        setSY([...new Set(uniqueYear)]);
-        setTerm([...new Set(uniqueTerm)]);
-      });
-    }
+          setSY([...new Set(uniqueYear)]);
+          setTerm([...new Set(uniqueTerm)]);
+        });
+      }
+    } catch (error) {}
   }
 
   useEffect(() => {

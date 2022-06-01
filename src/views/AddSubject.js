@@ -14,19 +14,24 @@ function AddForm() {
   const [year, setYear] = useState();
 
   const handleSubmit = async () => {
-    await db
-      .collection("subjects")
-      .add({
-        code: code,
-        description: desc,
-        laboratoryHours: lab,
-        lectureHours: lect,
-        noOfUnits: unit,
-        preRequisite: pre,
-        term: term,
-        year: year,
-      })
-      .catch((error) => alert(error.message));
+    try {
+      await db
+        .collection("subjects")
+        .add({
+          code: code,
+          description: desc,
+          laboratoryHours: lab,
+          lectureHours: lect,
+          noOfUnits: unit,
+          preRequisite: pre,
+          term: term,
+          year: year,
+        })
+        .then(() => alert("Subject Added Successfully!"))
+        .catch((error) => alert(error.message));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

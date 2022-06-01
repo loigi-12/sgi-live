@@ -12,12 +12,13 @@ function Courses() {
   });
 
   useEffect(() => {
-    const getCourse = async () => {
-      const data = await db.collection("courses").onSnapshot((snapshot) => {
-        setCourses(snapshot.docs.map((doc) => doc.data()));
-      });
-    };
-
+    try {
+      const getCourse = async () => {
+        const data = await db.collection("courses").onSnapshot((snapshot) => {
+          setCourses(snapshot.docs.map((doc) => doc.data()));
+        });
+      };
+    } catch (error) {}
     getCourse();
   }, []);
 

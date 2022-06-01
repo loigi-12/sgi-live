@@ -7,16 +7,39 @@ function AddForm() {
   const [subjects, setSubjects] = useState([]);
   const [value, setValue] = useState([]);
 
+  const [name, setName] = useState();
+  const [teacherId, setTeacher] = useState();
+
+  const handleSubmit = async () => {
+    try {
+      await db
+        .collection("teachers")
+        .add({
+          name: name,
+          teacherId: teacherId,
+        })
+        .then((docRef) => {
+          // setDocId(docRef.id);
+          alert("Teacher Added Successfully!");
+        })
+        .catch((error) => alert(error));
+    } catch (error) {}
+  };
+
   const getStudents = async () => {
-    await db.collection("students").onSnapshot((snapshot) => {
-      setStudents(snapshot.docs.map((doc) => doc.data()));
-    });
+    try {
+      await db.collection("students").onSnapshot((snapshot) => {
+        setStudents(snapshot.docs.map((doc) => doc.data()));
+      });
+    } catch (error) {}
   };
 
   const getSubjects = async () => {
-    await db.collection("subjects").onSnapshot((snapshot) => {
-      setSubjects(snapshot.docs.map((doc) => doc.data()));
-    });
+    try {
+      await db.collection("subjects").onSnapshot((snapshot) => {
+        setSubjects(snapshot.docs.map((doc) => doc.data()));
+      });
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -42,6 +65,8 @@ function AddForm() {
                         <Form.Control
                           placeholder="ID Number"
                           type="text"
+                          value={teacherId}
+                          onChange={(e) => setTeacher(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -51,60 +76,17 @@ function AddForm() {
                         <Form.Control
                           placeholder="Fullname"
                           type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                         ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>Add Student</label>
-                        <Form.Control
-                          as="select"
-                          // value={value}
-                          // onChange={(e) => {
-                          //   setType(e.target.value);
-                          // }}
-                        >
-                          <option selected disabled>
-                            Select option
-                          </option>
-                          {students.map((opt) => (
-                            <option value={opt}>
-                              {opt.studentId} - {opt.name}, {opt.course}{" "}
-                              {opt.year}
-                            </option>
-                          ))}
-                        </Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pr-1" md="4">
-                      <Form.Group>
-                        <label>Load Subjects</label>
-                        <Form.Control
-                          as="select"
-                          // value={type}
-                          // onChange={(e) => {
-                          //   setType(e.target.value);
-                          // }}
-                        >
-                          {/* <option selected disabled>
-                            Select option
-                          </option>
-                          {subjects.map((opt) => (
-                            <option value={opt.code}>
-                              {opt.code} - {opt.description}
-                            </option>
-                          ))} */}
-                        </Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
 
                   <Button
                     className="btn-fill pull-right"
-                    type="submit"
                     variant="info"
+                    onClick={handleSubmit}
                   >
                     Submit
                   </Button>

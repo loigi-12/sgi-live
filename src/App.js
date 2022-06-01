@@ -72,10 +72,7 @@ function App(props) {
               <PrivateRoute path="/subjects" component={Subjects} />
               <PrivateRoute path="/grades" component={Grades} />
               <PrivateRoute path="/students" component={Students} />
-              <PrivateRoute
-                path="/students/:id"
-                component={<StudentDetails />}
-              />
+              <PrivateRoute path="/student/:id" component={StudentDetails} />
               <PrivateRoute path="/courses" component={Courses} />
               <PrivateRoute path="/add-teacher" component={AddTeacher} />
               <PrivateRoute path="/add-student" component={AddStudent} />

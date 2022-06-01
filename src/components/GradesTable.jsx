@@ -11,7 +11,37 @@ class GradesTable extends Component {
     },
     { path: "grade", label: "Grade" },
     { path: "remarks", label: "Remarks" },
+    {
+      key: "edit",
+      label: "Action",
+      content: (grade) => (
+        <button
+          // onClick={() => this.props.onEdit(grade)}
+          className="btn btn-info btn-sm"
+        >
+          Edit
+        </button>
+      ),
+    },
   ];
+
+  // editColumn = {
+  //   key: "edit",
+  //   content: (grade) => (
+  //     <button
+  //       onClick={() => this.props.onEdit(grade)}
+  //       className="btn btn-info btn-sm"
+  //     >
+  //       Edit
+  //     </button>
+  //   ),
+  // };
+
+  // constructor() {
+  //   super();
+  //   const user = auth.getCurrentUser();
+  //   if (user) this.columns.push(this.editColumn);
+  // }
 
   render() {
     const { grades, sortColumn } = this.props;
